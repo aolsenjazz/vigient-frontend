@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@service/*": ["./src/service/*"],
-      "@domain/*": ["./packages/vigient-backend/src/domain/*"]
+      "@domain/*": ["./src/domain/*"]
     }
   },
   "include": ["src"]
