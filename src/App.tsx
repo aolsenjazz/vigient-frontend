@@ -1,48 +1,38 @@
-import React, { useState } from "react";
-import "./styles/App.css"; // Import the main stylesheet for your entire application
-
-// Import your components for each "page"
-import Main from "./components/Main";
-import Accounts from "./components/Accounts";
-import Sources from "./components/Sources";
-import Jobs from "./components/Jobs";
-import Navbar from "./components/Navbar"; // Import the Navbar component
-import Footer from "./components/Footer"; // Import the Footer component
+import React, { useState } from 'react';
+import './styles/App.css';
+import Main from './components/Main';
+import Accounts from './components/Accounts';
+import Sources from './components/Sources';
+import Jobs from './components/Jobs';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
-  // State to manage the current active page
-  const [currentPage, setCurrentPage] = useState<string>("main");
+  const [currentPage, setCurrentPage] = useState<string>('main');
 
-  // Function to change the current page
-  const changePage = (page: string) => {
+  const setPage = (page: string) => {
     setCurrentPage(page);
   };
 
-  // Render the appropriate component based on the current page
   const renderPage = () => {
     switch (currentPage) {
-      case "main":
+      case 'main':
         return <Main />;
-      case "accounts":
+      case 'accounts':
         return <Accounts />;
-      case "sources":
+      case 'sources':
         return <Sources />;
-      case "jobs":
+      case 'jobs':
         return <Jobs />;
       default:
-        return <Main />; // Default to the main page
+        return <Main />;
     }
   };
 
   return (
     <div className="App">
-      {/* Navigation Bar */}
-      <Navbar changePage={changePage} />
-
-      {/* Main Content Area */}
+      <Navbar setPage={setPage} />
       <div className="main-content">{renderPage()}</div>
-
-      {/* Footer */}
       <Footer />
     </div>
   );

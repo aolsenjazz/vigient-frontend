@@ -1,13 +1,29 @@
 /* Navbar.css */
 
 .navbar {
-  background-color: #2196F3; /* Material Design primary color (blue) */
+  background-color: #2196f3; /* Material Design primary color (blue) */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
+  height: 36px;
   color: white; /* Text color for links */
   font-family: inherit; /* Use the font from the global styles */
+}
+
+.navbar .go-back {
+  float: left;
+  font-size: 30px;
+  color: white; /* Make the button white */
+  cursor: pointer; /* Make it clear it's clickable */
+  transition:
+    transform 0.3s,
+    color 0.3s; /* Transition for hover effect */
+}
+
+.navbar .go-back:hover {
+  transform: scale(1.1); /* Slightly enlarge the button when hovered */
+  color: #f0f0f0; /* Make it a little bit lighter when hovered */
 }
 
 .navbar-container {
@@ -38,7 +54,34 @@
 }
 
 .nav-links li:hover {
-  color: #1976D2; /* Material Design primary color (blue) - darker shade */
+  color: #1976d2; /* Material Design primary color (blue) - darker shade */
+}
+
+.navbar .content-left {
+  display: inline-block;
+}
+
+.navbar .current-page-label {
+  float: right;
+  margin-left: 10px;
+}
+
+/* Existing styles */
+/* ... */
+
+.navbar .current-page {
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar .nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-links li.active {
+  border-bottom: 2px solid white; /* Or any other style you like */
 }
 
 /* You can add more styling for responsive design, hover effects, or other Material Design elements as needed. */

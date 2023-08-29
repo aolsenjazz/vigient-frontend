@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from 'axios';
 
 class VigientClient {
   private static instance: AxiosInstance;
@@ -8,9 +8,9 @@ class VigientClient {
   public static getInstance(): AxiosInstance {
     if (!VigientClient.instance) {
       VigientClient.instance = axios.create({
-        baseURL: "https://api.vigient.com/",
+        baseURL: 'https://api.vigient.com/',
         headers: {
-          "x-api-key": process.env.VigientAPIKey,
+          'x-api-key': process.env.REACT_APP_VigientAPIKey,
         },
       });
     }
