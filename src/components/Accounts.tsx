@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import AccountService from '@service/accounts-service';
 
 interface Account {
   id: number;
@@ -12,7 +13,7 @@ type DeleteConfirmationState = {
 };
 
 const Accounts: React.FC = () => {
-  const [handle, setHandle] = useState<string>("");
+  const [handle, setHandle] = useState<string>('');
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [deleteConfirmation, setDeleteConfirmation] =
     useState<DeleteConfirmationState>({
@@ -21,56 +22,39 @@ const Accounts: React.FC = () => {
     });
 
   useEffect(() => {
-    // Load accounts data when the component mounts
     loadAccounts();
   }, []);
 
   const loadAccounts = async () => {
-    // In a real implementation, you would fetch data here
-    // For this example, we'll generate dummy data with 5 rows
-    const dummyData: Account[] = generateDummyData(5);
-    setAccounts(dummyData);
-  };
-
-  const generateDummyData = (count: number): Account[] => {
-    const dummyData: Account[] = [];
-    for (let i = 1; i <= count; i++) {
-      dummyData.push({
-        id: i,
-        handle: `User${i}`,
-        createdAt: new Date().toLocaleString(),
-      });
+    try {
+      const fetchedAccounts = await AccountService.getAllAccounts(1000, 0);
+      setAccounts(fetchedAccounts);
+    } catch (error) {
+      console.error('Error loading accounts:', error);
     }
-    return dummyData;
   };
 
   const handleCreateAccount = async () => {
-    // Simulated creation of an account, you can implement the API call here
-    const newAccount: Account = {
-      id: accounts.length + 1, // Generate a unique ID (this is just an example)
-      handle: handle,
-      createdAt: new Date().toLocaleString(),
-    };
-
-    // Add the new account to the existing accounts
-    setAccounts([...accounts, newAccount]);
-
-    // Clear the input field
-    setHandle("");
+    try {
+      const newAccount = await AccountService.createAccount(handle);
+      setAccounts([...accounts, newAccount]);
+      setHandle('');
+    } catch (error) {
+      console.error('Error creating account:', error);
+    }
   };
 
   const handleDeleteAccount = async (accountId: number | null) => {
-    // Implement delete functionality here
-    // Remove the account with the specified ID from the accounts state
-    const updatedAccounts = accounts.filter(
-      (account) => account.id !== accountId,
-    );
-
-    // Close the delete confirmation
-    setDeleteConfirmation({ accountId: null, show: false });
-
-    // Update the accounts state with the remaining accounts
-    setAccounts(updatedAccounts);
+    try {
+      await AccountService.deleteAccount(accountId as number);
+      const updatedAccounts = accounts.filter(
+        (account) => account.id !== accountId
+      );
+      setAccounts(updatedAccounts);
+      setDeleteConfirmation({ accountId: null, show: false });
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    }
   };
 
   return (

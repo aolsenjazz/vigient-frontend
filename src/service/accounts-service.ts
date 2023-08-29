@@ -1,4 +1,4 @@
-import { AccountDTO, AccountDTOImpl } from "@domain/dto/accounts-dto";
+import { AccountDTO, AccountDTOImpl } from "@domain/dto/account-dto";
 import { client } from "../vigient-client";
 
 class AccountsService {
