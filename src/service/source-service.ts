@@ -1,12 +1,12 @@
-import { SourceDTO, SourceDTOImpl } from "@domain/dto/source-dto";
-import { client } from "../vigient-client";
+import { SourceDTO, SourceDTOImpl } from '@domain/dto/source-dto';
+import { client } from '../vigient-client';
 
 class SourceService {
   static async getAllSources(
     limit: number,
-    offset: number,
+    offset: number
   ): Promise<SourceDTO[]> {
-    const response = await client.get("/sources", {
+    const response = await client.get('/sources', {
       params: { limit, offset },
     });
 
@@ -20,7 +20,7 @@ class SourceService {
   }
 
   static async createSource(handle: string | null): Promise<SourceDTO> {
-    const response = await client.post("/sources", {
+    const response = await client.post('/sources', {
       handle,
     });
 
@@ -29,7 +29,7 @@ class SourceService {
 
   static async updateSource(
     id: number,
-    handle: string | null,
+    handle: string | null
   ): Promise<SourceDTO> {
     const response = await client.put(`/sources/${id}`, {
       handle,

@@ -1,40 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './styles/App.css';
 import Main from './components/Main';
 import Accounts from './components/Accounts';
+import Account from './components/Account';
 import Sources from './components/Sources';
 import Jobs from './components/Jobs';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 function App() {
-  const [currentPage, setCurrentPage] = useState<string>('main');
-
-  const setPage = (page: string) => {
-    setCurrentPage(page);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'main':
-        return <Main />;
-      case 'accounts':
-        return <Accounts />;
-      case 'sources':
-        return <Sources />;
-      case 'jobs':
-        return <Jobs />;
-      default:
-        return <Main />;
-    }
-  };
-
   return (
-    <div className="App">
-      <Navbar setPage={setPage} />
-      <div className="main-content">{renderPage()}</div>
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/accounts" element={<Accounts />} />
+            <Route path="/account/:id" element={<Account />} />
+            <Route path="/sources" element={<Sources />} />
+            <Route path="/jobs" element={<Jobs />} />
+            {/* No fallback is needed in v6, if no route matches, it'll simply not render anything */}
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

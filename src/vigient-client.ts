@@ -8,7 +8,10 @@ class VigientClient {
   public static getInstance(): AxiosInstance {
     if (!VigientClient.instance) {
       VigientClient.instance = axios.create({
-        baseURL: 'https://api.vigient.com/',
+        baseURL:
+          process.env.NODE_ENV === 'production'
+            ? 'https://api.vigient.com/'
+            : 'http://127.0.0.1:3000/',
         headers: {
           'x-api-key': process.env.REACT_APP_VigientAPIKey,
         },

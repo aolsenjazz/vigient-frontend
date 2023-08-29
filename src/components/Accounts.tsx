@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AccountService from '@service/accounts-service';
+import { useNavigate } from 'react-router-dom';
 
 interface Account {
   id: number;
@@ -13,6 +14,7 @@ type DeleteConfirmationState = {
 };
 
 const Accounts: React.FC = () => {
+  const navigate = useNavigate();
   const [handle, setHandle] = useState<string>('');
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [deleteConfirmation, setDeleteConfirmation] =
@@ -24,6 +26,10 @@ const Accounts: React.FC = () => {
   useEffect(() => {
     loadAccounts();
   }, []);
+
+  const navigateToAccount = (id: number) => {
+    navigate(`/account/${id}`);
+  };
 
   const loadAccounts = async () => {
     try {
@@ -87,11 +93,24 @@ const Accounts: React.FC = () => {
           <div className="account-row empty-row">No records to display</div>
         ) : (
           accounts.map((account) => (
-            <div key={account.id} className="account-row">
+            <div
+              key={account.id}
+              className="account-row clickable-row" // Add "clickable-row" class
+              onClick={() => navigateToAccount(account.id)} // Add click handler
+            >
               <div className="account-info">
                 <p>ID: {account.id}</p>
-                <p>Handle: {account.handle}</p>
-                <p>Created At: {account.createdAt}</p>
+                <p>
+                  Handle:
+                  <a
+                    href={`https://x.com/${account.handle}`}
+                    target="_blank"
+                  >{` ${account.handle}`}</a>
+                </p>
+                <p>
+                  Created At: {new Date(account.createdAt).toLocaleDateString()}{' '}
+                  {new Date(account.createdAt).toLocaleTimeString()}
+                </p>
               </div>
               <button
                 className="delete-button"

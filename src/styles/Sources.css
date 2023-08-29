@@ -1,48 +1,32 @@
-/* Accounts.css */
+/* Sources.css */
 
-.accounts-container {
+.sources-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 }
 
-.accounts-container .clickable-row {
-  cursor: pointer;
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.accounts-container .clickable-row:hover {
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Accounts.css */
-
-.create-account-form {
+.create-source-form {
   display: flex;
   flex-direction: row; /* Change to row to make form elements horizontally inline */
   align-items: center;
   margin-bottom: 20px;
 }
 
-.create-account-form input[type='text'] {
-  /* Keep width as needed */
+.create-source-form input[type='text'] {
   padding: 10px;
   margin-right: 10px; /* Add spacing between fields */
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.create-account-form input:not(#handle) {
+.create-source-form input:not(#handle) {
   cursor: auto;
   opacity: 0.5;
 }
 
-.create-account-form button:hover {
-  cursor: pointer; /* Change cursor on hover for "Enter handle" input and submit button */
-}
-
-.create-account-form button {
+.create-source-form button {
   background-color: #2196f3;
   color: white;
   border: none;
@@ -50,15 +34,16 @@
   padding: 10px 20px;
 }
 
-.create-account-form button:hover {
+.create-source-form button:hover {
   background-color: #1976d2;
+  cursor: pointer;
 }
 
-.account-list {
+.source-list {
   width: 100%;
 }
 
-.account-row {
+.source-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,16 +58,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px; /* Adjust the height to your preference */
-  font-size: 18px; /* Increase font size for better visibility */
-  color: #777; /* Choose a color that's less prominent */
+  height: 100px;
+  font-size: 18px;
+  color: #777;
 }
 
-.account-info p {
+.source-info p {
   margin: 0;
-  font-size: 16px; /* Larger font size */
-  color: #333; /* Darker text color */
-  padding: 5px 0; /* Add padding for spacing between rows */
+  font-size: 16px;
+  color: #333;
+  padding: 5px 0;
 }
 
 .delete-button {

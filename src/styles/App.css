@@ -1,5 +1,7 @@
-@import "./Navbar.css";
-@import "./Accounts.css";
+@import './Navbar.css';
+@import './Accounts.css';
+@import './Account.css';
+@import './Sources.css';
 
 /* Reset some default styles */
 body,
@@ -14,7 +16,7 @@ input {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: "Helvetica", sans-serif; /* Replace with your desired font-family */
+  font-family: 'Helvetica', sans-serif; /* Replace with your desired font-family */
 }
 
 /* Apply a global font-size and line-height */
