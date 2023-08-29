@@ -1,0 +1,52 @@
+@import "./Navbar.css";
+@import "./Accounts.css";
+
+/* Reset some default styles */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+button,
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Helvetica", sans-serif; /* Replace with your desired font-family */
+}
+
+/* Apply a global font-size and line-height */
+body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Set a background color for the entire page */
+body {
+  background-color: #f0f0f0; /* Example background color */
+}
+
+/* Center the content vertically and horizontally */
+html,
+body,
+root {
+  height: 100%;
+  width: 100;
+}
+
+/* Style links */
+a {
+  text-decoration: none;
+  color: #007bff; /* Example link color */
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  margin: 0 auto; /* Center horizontally */
+  max-width: 80%; /* Limit width to 80% of the viewport */
+}

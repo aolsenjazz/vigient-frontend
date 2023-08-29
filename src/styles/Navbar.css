@@ -1,0 +1,61 @@
+/* Navbar.css */
+
+.navbar {
+  background-color: #2196F3; /* Material Design primary color (blue) */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  color: white; /* Text color for links */
+  font-family: inherit; /* Use the font from the global styles */
+}
+
+.navbar-container {
+  max-width: 80%; /* Limit to 80% of window width */
+  margin: 0 auto; /* Center horizontally */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure it takes up 100% of its parent's width */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-links {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.nav-links li:hover {
+  color: #1976D2; /* Material Design primary color (blue) - darker shade */
+}
+
+/* You can add more styling for responsive design, hover effects, or other Material Design elements as needed. */
+
+/* Example: Media query for responsive design */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+  }
+
+  .nav-links li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
