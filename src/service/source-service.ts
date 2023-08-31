@@ -5,7 +5,7 @@ class SourceService {
   static async getAllSources(
     limit: number,
     offset: number
-  ): Promise<SourceDTO[]> {
+  ): Promise<SourceDTOImpl[]> {
     const response = await client.get('/sources', {
       params: { limit, offset },
     });
@@ -13,13 +13,13 @@ class SourceService {
     return response.data.map((source: SourceDTO) => new SourceDTOImpl(source));
   }
 
-  static async getSourceById(id: number): Promise<SourceDTO> {
+  static async getSourceById(id: number): Promise<SourceDTOImpl> {
     const response = await client.get(`/sources/${id}`);
 
     return new SourceDTOImpl(response.data);
   }
 
-  static async createSource(handle: string | null): Promise<SourceDTO> {
+  static async createSource(handle: string | null): Promise<SourceDTOImpl> {
     const response = await client.post('/sources', {
       handle,
     });
@@ -30,7 +30,7 @@ class SourceService {
   static async updateSource(
     id: number,
     handle: string | null
-  ): Promise<SourceDTO> {
+  ): Promise<SourceDTOImpl> {
     const response = await client.put(`/sources/${id}`, {
       handle,
     });

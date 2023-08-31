@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { errorEmitter } from './events';
 
 class VigientClient {
   private static instance: AxiosInstance;
@@ -16,6 +17,15 @@ class VigientClient {
           'x-api-key': process.env.REACT_APP_VigientAPIKey,
         },
       });
+
+      VigientClient.instance.interceptors.response.use(
+        (response) => response,
+        (error) => {
+          errorEmitter.emit('apiError', error.response.data.message);
+
+          throw error;
+        }
+      );
     }
     return VigientClient.instance;
   }

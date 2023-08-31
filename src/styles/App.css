@@ -2,6 +2,13 @@
 @import './Accounts.css';
 @import './Account.css';
 @import './Sources.css';
+@import './Schedules.css';
+@import './Jobs.css';
+@import './CreateJobCard.css';
+@import './Cards.css';
+@import './Table.css';
+@import './forms.css';
+@import './ErrorModal.css';
 
 /* Reset some default styles */
 body,
@@ -51,4 +58,5 @@ a:hover {
 .main-content {
   margin: 0 auto; /* Center horizontally */
   max-width: 80%; /* Limit width to 80% of the viewport */
+  margin-top: 12px;
 }

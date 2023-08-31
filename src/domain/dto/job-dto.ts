@@ -1,31 +1,76 @@
-export type JobStatus = 'running' | 'complete' | 'paused' | 'stopped';
+import { DatabaseItem } from './database-item';
+
+export type HandleDetails = {
+  sourceHandle?: string;
+  accountHandle?: string;
+};
+
+export type JobStatus =
+  | 'pending'
+  | 'running'
+  | 'failed'
+  | 'paused'
+  | 'completed';
 
 export interface JobDTO {
   id: number;
+  jobType: string;
+  priority: 1 | 2 | 3;
+  data?: any;
+  state: JobStatus;
   startDate: string;
-  status: JobStatus;
-  type: string;
-  target: string;
-  stopReason?: string;
   completeDate?: string;
+  status?: string;
+  scheduleId?: number;
+  sourceId?: number;
+  accountId?: number;
+  createdAt: string;
 }
 
-export class JobDTOImpl implements JobDTO {
+export class JobDTOImpl extends DatabaseItem implements JobDTO {
   id: number;
+  jobType: string;
+  priority: 1 | 2 | 3;
+  data?: any;
+  state: JobStatus;
   startDate: string;
-  status: JobStatus;
-  type: string;
-  target: string;
-  stopReason?: string;
   completeDate?: string;
+  status?: string;
+  scheduleId?: number;
+  sourceId?: number;
+  accountId?: number;
 
-  constructor(j: JobDTO) {
+  accountHandle?: string;
+  sourceHandle?: string;
+
+  constructor(j: JobDTO & HandleDetails) {
+    super(j.createdAt);
+
     this.id = j.id;
+    this.jobType = j.jobType;
+    this.priority = j.priority;
+    this.data = j.data;
+    this.state = j.state;
     this.startDate = j.startDate;
-    this.status = j.status;
-    this.type = j.type;
-    this.target = j.target;
     this.completeDate = j.completeDate;
-    this.stopReason = j.stopReason;
+    this.status = j.status;
+    this.scheduleId = j.scheduleId;
+    this.accountId = j.accountId;
+
+    this.accountHandle = j.accountHandle;
+    this.sourceHandle = j.sourceHandle;
+  }
+
+  getPriorityString() {
+    switch (this.priority) {
+      case 1:
+        return 'LOW';
+      case 2:
+        return 'MEDIUM';
+      case 3:
+        return 'HIGH';
+      default:
+        throw new Error(`invalid priority value ${this.priority}`);
+    }
   }
 }

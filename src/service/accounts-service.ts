@@ -1,12 +1,13 @@
 import { AccountDTO, AccountDTOImpl } from '@domain/dto/account-dto';
-import { SourceDTO } from '@domain/dto/source-dto';
+import { ScheduleDTO, ScheduleDTOImpl } from '@domain/dto/schedule-dto';
+import { SourceDTO, SourceDTOImpl } from '@domain/dto/source-dto';
 import { client } from '../vigient-client';
 
 class AccountsService {
   static async getAllAccounts(
     limit: number,
     offset: number
-  ): Promise<AccountDTO[]> {
+  ): Promise<AccountDTOImpl[]> {
     const response = await client.get('/accounts', {
       params: { limit, offset },
     });
@@ -16,13 +17,13 @@ class AccountsService {
     );
   }
 
-  static async getAccountById(id: number): Promise<AccountDTO> {
+  static async getAccountById(id: number): Promise<AccountDTOImpl> {
     const response = await client.get(`/accounts/${id}`);
 
     return new AccountDTOImpl(response.data);
   }
 
-  static async createAccount(handle: string): Promise<AccountDTO> {
+  static async createAccount(handle: string): Promise<AccountDTOImpl> {
     const response = await client.post('/accounts', {
       handle,
     });
@@ -30,7 +31,10 @@ class AccountsService {
     return new AccountDTOImpl(response.data);
   }
 
-  static async updateAccount(id: number, handle: string): Promise<AccountDTO> {
+  static async updateAccount(
+    id: number,
+    handle: string
+  ): Promise<AccountDTOImpl> {
     const response = await client.put(`/accounts/${id}`, {
       handle,
     });
@@ -42,14 +46,18 @@ class AccountsService {
     await client.delete(`/accounts/${id}`);
   }
 
-  static async getLinkedSourcesForAccount(id: number): Promise<SourceDTO[]> {
+  static async getLinkedSourcesForAccount(
+    id: number
+  ): Promise<SourceDTOImpl[]> {
     const response = await client.get(`/accounts/${id}/sources`);
-    return response.data; // Assuming data is already in the desired shape, otherwise you can map it.
+    return response.data.map((dto: SourceDTO) => new SourceDTOImpl(dto));
   }
 
-  static async getUnlinkedSourcesForAccount(id: number): Promise<SourceDTO[]> {
+  static async getUnlinkedSourcesForAccount(
+    id: number
+  ): Promise<SourceDTOImpl[]> {
     const response = await client.get(`/accounts/${id}/unlinked-sources`);
-    return response.data; // Assuming data is already in the desired shape, otherwise you can map it.
+    return response.data.map((dto: SourceDTO) => new SourceDTOImpl(dto));
   }
 
   static async addSourceToAccount(
@@ -64,6 +72,11 @@ class AccountsService {
     sourceId: number
   ): Promise<void> {
     await client.delete(`/accounts/${accountId}/sources/${sourceId}`);
+  }
+
+  static async getSchedulesForAccount(id: number): Promise<ScheduleDTOImpl[]> {
+    const response = await client.get(`/accounts/${id}/schedules`);
+    return response.data.map((dto: ScheduleDTO) => new ScheduleDTOImpl(dto));
   }
 }
 

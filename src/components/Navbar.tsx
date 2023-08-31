@@ -19,6 +19,7 @@ const Navbar: React.FC = () => {
           <li onClick={() => changePage('accounts')}>Accounts</li>
           <li onClick={() => changePage('sources')}>Sources</li>
           <li onClick={() => changePage('jobs')}>Jobs</li>
+          <li onClick={() => changePage('schedules')}>Schedules</li>
         </ul>
       </div>
     </nav>
