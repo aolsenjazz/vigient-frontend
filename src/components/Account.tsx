@@ -15,47 +15,40 @@ const Account: React.FC = () => {
   const [linkedSources, setLinkedSources] = useState<SourceDTOImpl[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (accountId) {
-        try {
-          const fetchedAccount =
-            await AccountsService.getAccountById(accountId);
+    if (accountId) {
+      AccountsService.getAccountById(accountId)
+        .then((fetchedAccount) => {
           setAccount(fetchedAccount);
+        })
+        .catch((e) => {});
 
-          const fetchedLinkedSources =
-            await AccountsService.getLinkedSourcesForAccount(accountId);
-
+      AccountsService.getLinkedSourcesForAccount(accountId)
+        .then((fetchedLinkedSources) => {
           setLinkedSources(fetchedLinkedSources);
-        } catch (error) {
-          console.error('An error occurred while fetching data:', error);
-        }
-      }
-    };
-
-    fetchData();
+        })
+        .catch((e) => {});
+    }
   }, [accountId]);
 
-  const onDeleteSource = async (dataRow: SourceDTO) => {
-    try {
-      if (dataRow.id !== null && accountId) {
-        await AccountsService.deleteSourceFromAccount(accountId, dataRow.id);
-        const updatedLinkedSources = linkedSources.filter(
-          (source) => source.id !== dataRow.id
-        );
-        setLinkedSources(updatedLinkedSources);
-      }
-    } catch (error) {
-      console.error('Error unlinking source:', error);
+  const onDeleteSource = (dataRow: SourceDTO) => {
+    if (dataRow.id !== null && accountId) {
+      AccountsService.deleteSourceFromAccount(accountId, dataRow.id)
+        .then(() => AccountsService.getLinkedSourcesForAccount(accountId))
+        .then((fetchedLinkedSources) => {
+          setLinkedSources(fetchedLinkedSources);
+        })
+        .catch((e) => {});
     }
   };
 
-  const onLinkSource = async (sourceId: number) => {
+  const onLinkSource = (sourceId: number) => {
     if (sourceId && accountId) {
-      await AccountsService.addSourceToAccount(accountId, sourceId);
-
-      const fetchedLinkedSources =
-        await AccountsService.getLinkedSourcesForAccount(accountId);
-      setLinkedSources(fetchedLinkedSources);
+      AccountsService.addSourceToAccount(accountId, sourceId)
+        .then(() => AccountsService.getLinkedSourcesForAccount(accountId))
+        .then((fetchedLinkedSources) => {
+          setLinkedSources(fetchedLinkedSources);
+        })
+        .catch((e) => {});
     }
   };
 

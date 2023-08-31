@@ -22,7 +22,7 @@ class VigientClient {
         (response) => response,
         (error) => {
           errorEmitter.emit('apiError', error.response.data.message);
-
+          console.log(error);
           throw error;
         }
       );

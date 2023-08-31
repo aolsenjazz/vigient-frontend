@@ -6,52 +6,39 @@ import { SourceDTO, SourceDTOImpl } from '@domain/dto/source-dto';
 import CreateSourceForm from './forms/CreateSourceForm'; // Importing the standalone form
 
 const Sources: React.FC = () => {
-  const [handle, setHandle] = useState<string | null>(null);
   const [sources, setSources] = useState<SourceDTOImpl[]>([]);
 
   useEffect(() => {
-    loadSources();
+    SourceService.getAllSources(1000, 0)
+      .then((sources) => setSources(sources))
+      .catch((e) => {});
   }, []);
 
-  const loadSources = async () => {
-    try {
-      const fetchedSources = await SourceService.getAllSources(1000, 0);
-      setSources(fetchedSources);
-    } catch (error) {
-      console.error('Error loading sources:', error);
-    }
+  const onCreate = (handle: string) => {
+    SourceService.createSource(handle)
+      .then(() => SourceService.getAllSources(1000, 0))
+      .then((accounts) => setSources(accounts))
+      .catch((e) => {});
   };
 
-  const handleCreateSource = async (handle: string) => {
-    try {
-      const newSource = await SourceService.createSource(handle);
-      setSources([...sources, newSource]);
-    } catch (error) {
-      console.error('Error creating source:', error);
-    }
-  };
-
-  const handleDeleteSource = async (source: SourceDTO) => {
-    try {
-      await SourceService.deleteSource(source.id);
-      const updatedSources = sources.filter((s) => s.id !== source.id);
-      setSources(updatedSources);
-    } catch (error) {
-      console.error('Error deleting source:', error);
-    }
+  const onDelete = (source: SourceDTOImpl) => {
+    SourceService.deleteSource(source.id)
+      .then(() => SourceService.getAllSources(1000, 0))
+      .then((sources) => setSources(sources))
+      .catch((e) => {});
   };
 
   return (
     <div className="sources-container">
       <Card title="Create New Source">
-        <CreateSourceForm onCreate={handleCreateSource} />
+        <CreateSourceForm onCreate={onCreate} />
       </Card>
 
       <Card title="Existing Sources">
         <Table
           data={sources}
           onEmpty="No records to display"
-          onDelete={handleDeleteSource}
+          onDelete={onDelete}
           accessors={{
             createdAt: (source: SourceDTOImpl) => source.createdAtReadable(),
           }}
