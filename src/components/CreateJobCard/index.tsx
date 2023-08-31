@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import JobDetails from './JobDetailsCard'; // Import the JobDetails component
+import JobDetails from './JobDetails'; // Import the JobDetails component
 import JobConfiguration from './JobConfiguration'; // Import the JobConfiguration component
 import JobsService from '@service/jobs-service';
 import { errorEmitter } from '../../events';
@@ -10,7 +10,6 @@ type Props = {
 
 const CreateJobCard = ({ onSubmit }: Props) => {
   const [selectedJobType, setSelectedJobType] = useState(''); // Add state to track the selected job type
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [priority, setPriority] = useState<1 | 2 | 3>(1); // Initialize priority state
   const [sourceId, setSourceId] = useState<number | null>(null); // Initialize accountId state
 
@@ -20,8 +19,6 @@ const CreateJobCard = ({ onSubmit }: Props) => {
       return;
     }
 
-    setIsSubmitting(true);
-
     const jobData = {
       jobType: selectedJobType,
       priority,
@@ -29,15 +26,12 @@ const CreateJobCard = ({ onSubmit }: Props) => {
       sourceId,
     };
 
-    try {
-      await JobsService.createJob(jobData);
-      onSubmit();
-    } catch (error) {
-    } finally {
-      setIsSubmitting(false);
-      setSelectedJobType(''); // Reset the form
-      // Reset other form fields like priority, accountId, etc., if needed
-    }
+    JobsService.createJob(jobData)
+      .then(() => {
+        onSubmit();
+        setSelectedJobType(''); // Reset the form
+      })
+      .catch((error) => {});
   };
 
   const handleChangeJobType = (e: any) => {
@@ -90,7 +84,6 @@ const CreateJobCard = ({ onSubmit }: Props) => {
                 type="button"
                 className="submit-button"
                 onClick={handleCreateJob}
-                disabled={isSubmitting}
               >
                 Create Job
               </button>

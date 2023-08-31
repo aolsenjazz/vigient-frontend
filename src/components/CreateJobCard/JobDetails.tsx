@@ -27,7 +27,6 @@ const JobDetails: React.FC<JobDetailsProps> = ({
   const [allAccounts, setAllAccounts] = useState<any[]>([]); // Replace 'any' with the actual AccountDTOImpl type if available
   const [allSources, setAllSources] = useState<SourceDTOImpl[]>([]);
 
-  // Fetch all accounts on component mount
   useEffect(() => {
     const fetchAccounts = async () => {
       const sources = await SourceService.getAllSources(1000, 0);

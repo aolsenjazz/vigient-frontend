@@ -40,6 +40,10 @@ table .delete-button {
   color: white;
 }
 
+.table-container {
+  overflow-x: scroll;
+}
+
 .delete-confirmation-modal {
   position: fixed;
   top: 0;
