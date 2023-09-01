@@ -42,7 +42,7 @@ const Jobs: React.FC = () => {
                 priority: (job) => job.getPriorityString(),
               }}
               onDelete={onDelete}
-              omit={['data', 'id', 'accountId', 'sourceId']}
+              omit={['data', 'id', 'accountId', 'sourceId', 'createdAt']}
             />
           </div>
         </div>

@@ -8,6 +8,7 @@ export type HandleDetails = {
 export interface ScheduleDTO {
   id: number;
   jobType: string;
+  priority: 1 | 2 | 3;
   accountId?: number | null; // Can be null
   data?: any | null; // You could define a more specific type if applicable
   eligibilityWindowStart: string; // Changed type to string to represent time
@@ -20,6 +21,7 @@ export interface ScheduleDTO {
 export class ScheduleDTOImpl extends DatabaseItem implements ScheduleDTO {
   id: number;
   jobType: string;
+  priority: 1 | 2 | 3;
   accountId?: number | null;
   data?: any | null;
   eligibilityWindowStart: string; // Changed type to string to represent time
@@ -41,6 +43,7 @@ export class ScheduleDTOImpl extends DatabaseItem implements ScheduleDTO {
     this.eligibilityWindowEnd = s.eligibilityWindowEnd;
     this.frequencyMinutes = s.frequencyMinutes;
     this.sourceId = s.sourceId;
+    this.priority = s.priority;
 
     this.sourceHandle = s.sourceHandle;
     this.accountHandle = s.accountHandle;
