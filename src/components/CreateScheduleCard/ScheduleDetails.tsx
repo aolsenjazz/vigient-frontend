@@ -16,6 +16,8 @@ interface ScheduleDetailsProps {
   setFrequencyMinutes: React.Dispatch<React.SetStateAction<number>>;
   sourceId: number | null;
   setSourceId: React.Dispatch<React.SetStateAction<number | null>>;
+  priority: number;
+  setPriority: React.Dispatch<React.SetStateAction<1 | 2 | 3>>;
 }
 
 const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({
@@ -27,6 +29,8 @@ const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({
   setFrequencyMinutes,
   sourceId,
   setSourceId,
+  priority,
+  setPriority,
 }) => {
   const [allSources, setAllSources] = useState<SourceDTOImpl[]>([]);
 
@@ -108,6 +112,19 @@ const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({
             value={frequencyMinutes || ''}
             onChange={(e) => setFrequencyMinutes(parseInt(e.target.value, 10))}
           />
+        </div>
+        <div className="input-div">
+          <label>Priority:</label>
+          <select
+            value={priority}
+            onChange={(e) =>
+              setPriority(parseInt(e.target.value, 10) as 1 | 2 | 3)
+            }
+          >
+            <option value={1}>LOW</option>
+            <option value={2}>MEDIUM</option>
+            <option value={3}>HIGH</option>
+          </select>
         </div>
       </div>
     </>

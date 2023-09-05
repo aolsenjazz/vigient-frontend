@@ -5,6 +5,7 @@ import { Table } from './Table';
 import { AccountDTO, AccountDTOImpl } from '@domain/dto/account-dto';
 import Card from './Card';
 import CreateAccountForm from './forms/CreateAccountForm';
+import { AccountsTable } from './AccountsTable';
 
 const Accounts: React.FC = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Accounts: React.FC = () => {
         <CreateAccountForm onCreate={onCreate} />
       </Card>
       <Card title="Existing Accounts">
-        <Table
+        <AccountsTable
           data={accounts}
           onEmpty="No records to display"
           onClick={(account: AccountDTO) => navigateToAccount(account.id)}

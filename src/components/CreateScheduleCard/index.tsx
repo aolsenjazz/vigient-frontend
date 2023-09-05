@@ -14,6 +14,7 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
   const [eligibilityWindowEnd, setEligibilityWindowEnd] = useState('');
   const [frequencyMinutes, setFrequencyMinutes] = useState(60);
   const [sourceId, setSourceId] = useState<number | null>(null); // Initialize accountId state
+  const [priority, setPriority] = useState<1 | 2 | 3>(1);
 
   const handleCreateSchedule = () => {
     if (
@@ -32,6 +33,7 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
       eligibilityWindowEnd,
       frequencyMinutes,
       sourceId,
+      priority,
     };
 
     SchedulesService.createSchedule(scheduleData)
@@ -73,6 +75,8 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
                 setFrequencyMinutes={setFrequencyMinutes}
                 sourceId={sourceId}
                 setSourceId={setSourceId}
+                priority={priority}
+                setPriority={setPriority}
               />
             </div>
             <div className="fields job-config-section">

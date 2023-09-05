@@ -60,3 +60,12 @@ a:hover {
   max-width: 80%; /* Limit width to 80% of the viewport */
   margin-top: 12px;
 }
+
+button.blue {
+  background-color: #007bff;
+  color: white;
+}
+
+a.white {
+  color: white;
+}
