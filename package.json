@@ -21,7 +21,7 @@
   "scripts": {
     "deploy": "npm run build && ./scripts/deploy.sh",
     "ssh": "./scripts/ssh.sh",
-    "start": "PORT=3004 craco start",
+    "start": "NODE_ENV='development' PORT=3004 craco start",
     "start:prod": "pm2 start prod.config.js",
     "build": "craco build",
     "test": "craco test",

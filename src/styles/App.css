@@ -66,6 +66,11 @@ button.blue {
   color: white;
 }
 
+button.light-blue {
+  background-color: #55acee;
+  color: white;
+}
+
 a.white {
   color: white;
 }

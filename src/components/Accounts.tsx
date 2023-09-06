@@ -44,6 +44,12 @@ const Accounts: React.FC = () => {
         <AccountsTable
           data={accounts}
           onEmpty="No records to display"
+          omit={[
+            'oauth1AccessToken',
+            'oauth1AccessTokenSecret',
+            'oauth2AccessToken',
+            'oauth2RefreshToken',
+          ]}
           onClick={(account: AccountDTO) => navigateToAccount(account.id)}
           onDelete={onDelete}
           accessors={{

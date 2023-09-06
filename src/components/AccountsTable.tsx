@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import AuthorizeButton from './AuthorizeButton';
+import OAuth1AuthorizeButton from './OAuth1AuthorizeButton';
+import OAuth2AuthorizeButton from './OAuth2AuthorizeButton';
 
 interface Accessor<T> {
   [key: string]: (dataRow: T) => any;
@@ -44,8 +45,9 @@ export function AccountsTable<T extends Record<string, any>>({
               .map((header, index) => (
                 <th key={index}>{header}</th>
               ))}
+            <th>OAuth1</th>
+            <th>OAuth2</th>
             {onDelete && <th>Delete</th>}
-            <th>Authorize</th>
           </tr>
         </thead>
         <tbody>
@@ -71,22 +73,36 @@ export function AccountsTable<T extends Record<string, any>>({
                         : row[header]}
                     </td>
                   ))}
+                <td>
+                  <OAuth1AuthorizeButton
+                    isAuthorized={
+                      ![undefined, null].includes(row.oauth1AccessToken)
+                    }
+                    handle={row.handle}
+                  />
+                </td>
+                <td>
+                  <OAuth2AuthorizeButton
+                    isAuthorized={
+                      ![undefined, null].includes(row.oauth2AccessToken)
+                    }
+                    handle={row.handle}
+                  />
+                </td>
+
                 {onDelete && (
                   <td>
-                    <AuthorizeButton isAuthorized={false} handle={row.handle} />
+                    <button
+                      className="delete-button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeleteConfirmation(row);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </td>
                 )}
-                <td>
-                  <button
-                    className="delete-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setDeleteConfirmation(row);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
               </tr>
             ))
           )}

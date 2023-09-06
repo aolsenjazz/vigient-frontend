@@ -1,3 +1,8 @@
+export type PreStorageExtendedVideoPropertiesDTO = Omit<
+  ExtendedVideoPropertiesDTO,
+  'id' | 'entityId'
+>;
+
 export interface ExtendedVideoPropertiesDTO {
   id: number;
   entityId: number;

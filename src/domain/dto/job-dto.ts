@@ -56,6 +56,7 @@ export class JobDTOImpl extends DatabaseItem implements JobDTO {
     this.status = j.status;
     this.scheduleId = j.scheduleId;
     this.accountId = j.accountId;
+    this.sourceId = j.sourceId;
 
     this.accountHandle = j.accountHandle;
     this.sourceHandle = j.sourceHandle;
