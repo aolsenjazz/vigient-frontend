@@ -81,4 +81,11 @@ export class JobDTOImpl extends DatabaseItem implements JobDTO {
     const date = new Date(this.completeDate);
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
   }
+
+  startDateReadable() {
+    if (!this.startDate) return '';
+
+    const date = new Date(this.startDate);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  }
 }

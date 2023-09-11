@@ -38,7 +38,7 @@ const Jobs: React.FC = () => {
               onEmpty="Get a job, kid!"
               accessors={{
                 createdAt: (job) => job.createdAtReadable(),
-                startDate: (job) => job.createdAtReadable(),
+                startDate: (job) => job.startDateReadable(),
                 priority: (job) => job.getPriorityString(),
                 completeDate: (j) => j.completeDateReadable(),
               }}
