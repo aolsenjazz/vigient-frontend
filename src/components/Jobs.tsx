@@ -43,14 +43,7 @@ const Jobs: React.FC = () => {
                 completeDate: (j) => j.completeDateReadable(),
               }}
               onDelete={onDelete}
-              omit={[
-                'data',
-                'id',
-                'accountId',
-                'sourceId',
-                'createdAt',
-                'state',
-              ]}
+              omit={['data', 'accountId', 'sourceId', 'createdAt', 'state']}
             />
           </div>
         </div>
