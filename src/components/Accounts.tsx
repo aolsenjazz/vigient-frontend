@@ -49,6 +49,11 @@ const Accounts: React.FC = () => {
             'oauth1AccessTokenSecret',
             'oauth2AccessToken',
             'oauth2RefreshToken',
+            'description',
+            'name',
+            'createdAt',
+            'listedCount',
+            'twitterId',
           ]}
           onClick={(account: AccountDTO) => navigateToAccount(account.id)}
           onDelete={onDelete}

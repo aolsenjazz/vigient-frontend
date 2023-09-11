@@ -74,4 +74,11 @@ export class JobDTOImpl extends DatabaseItem implements JobDTO {
         throw new Error(`invalid priority value ${this.priority}`);
     }
   }
+
+  completeDateReadable() {
+    if (!this.completeDate) return '';
+
+    const date = new Date(this.completeDate);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  }
 }

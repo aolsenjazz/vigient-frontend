@@ -1,0 +1,20 @@
+table.jobs tr,
+table.jobs td {
+  border-bottom: 1px solid white;
+}
+
+table.jobs tr.completed {
+  background-color: #d2f8d2;
+}
+
+table.jobs tr.pending {
+  background-color: #f8f8d2;
+}
+
+table.jobs tr.failed {
+  background-color: #f8d2d2;
+}
+
+table.jobs tr.running {
+  background-color: #f8e5d2;
+}

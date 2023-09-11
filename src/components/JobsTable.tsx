@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Accessor<T> {
   [key: string]: (dataRow: T) => any;
@@ -13,7 +13,7 @@ interface TableProps<T> {
   onClick?: (dataRow: T) => void;
 }
 
-export function Table<T extends Record<string, any>>({
+export function JobsTable<T extends Record<string, any>>({
   data,
   accessors,
   onDelete,
@@ -24,6 +24,7 @@ export function Table<T extends Record<string, any>>({
   const [deleteConfirmation, setDeleteConfirmation] = useState<T | null>(null);
   const headers = data.length > 0 ? Object.keys(data[0]) : [];
   const colspan = headers.length + (onDelete ? 1 : 0);
+  const confirmButtonRef = React.createRef<HTMLButtonElement>();
 
   headers.sort((a, b) => {
     if (a === 'id') return -1;
@@ -33,9 +34,17 @@ export function Table<T extends Record<string, any>>({
     return 0;
   });
 
+  useEffect(() => {
+    if (deleteConfirmation && confirmButtonRef.current) {
+      confirmButtonRef.current.focus();
+    }
+  }, [deleteConfirmation]);
+
   return (
     <div className={`table-container`}>
-      <table className={`subsection ${deleteConfirmation ? 'dimmed' : ''}`}>
+      <table
+        className={`subsection ${deleteConfirmation ? 'dimmed' : ''} jobs`}
+      >
         <thead>
           <tr>
             {headers
@@ -58,7 +67,7 @@ export function Table<T extends Record<string, any>>({
               <tr
                 key={rowIndex}
                 onClick={() => onClick && onClick(row)}
-                className={onClick ? 'clickable-row' : ''}
+                className={`${row.state} ${onClick ? `clickable-row` : ''}`}
               >
                 {headers
                   .filter((h) => !omit.includes(h))
@@ -101,14 +110,21 @@ export function Table<T extends Record<string, any>>({
         >
           <div className="delete-confirmation-content">
             <p>Are you sure you want to delete this row?</p>
+
             <button
+              ref={confirmButtonRef}
               onClick={(e) => {
                 onDelete && onDelete(deleteConfirmation);
                 setDeleteConfirmation(null);
               }}
             >
               Confirm
+              <br />
+              <span style={{ fontSize: '0.7em', color: 'lightgray' }}>
+                (or press Enter)
+              </span>
             </button>
+
             <button onClick={() => setDeleteConfirmation(null)}>Cancel</button>
           </div>
         </div>

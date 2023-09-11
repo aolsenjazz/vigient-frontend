@@ -39,16 +39,18 @@ export function AccountsTable<T extends Record<string, any>>({
     <div className={`table-container`}>
       <table className={`subsection ${deleteConfirmation ? 'dimmed' : ''}`}>
         <thead>
-          <tr>
-            {headers
-              .filter((h) => !omit.includes(h))
-              .map((header, index) => (
-                <th key={index}>{header}</th>
-              ))}
-            <th>OAuth1</th>
-            <th>OAuth2</th>
-            {onDelete && <th>Delete</th>}
-          </tr>
+          {data.length > 0 && (
+            <tr>
+              {headers
+                .filter((h) => !omit.includes(h))
+                .map((header, index) => (
+                  <th key={index}>{header}</th>
+                ))}
+              <th>OAuth1</th>
+              <th>OAuth2</th>
+              {onDelete && <th>Delete</th>}
+            </tr>
+          )}
         </thead>
         <tbody>
           {data.length === 0 ? (

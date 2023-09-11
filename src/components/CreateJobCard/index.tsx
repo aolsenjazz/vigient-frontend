@@ -11,20 +11,16 @@ type Props = {
 const CreateJobCard = ({ onSubmit }: Props) => {
   const [selectedJobType, setSelectedJobType] = useState(''); // Add state to track the selected job type
   const [priority, setPriority] = useState<1 | 2 | 3>(1); // Initialize priority state
-  const [sourceId, setSourceId] = useState<number | null>(null); // Initialize accountId state
+  const [jobConfig, setJobConfig] = useState<Object>({});
 
   const handleCreateJob = async () => {
-    if (sourceId === null) {
-      errorEmitter.emit('apiError', 'sourceId is required');
-      return;
-    }
-
     const jobData = {
       jobType: selectedJobType,
       priority,
       state: 'pending' as const,
-      sourceId,
+      ...jobConfig,
     };
+    console.log(jobData);
 
     JobsService.createJob(jobData)
       .then(() => {
@@ -55,6 +51,7 @@ const CreateJobCard = ({ onSubmit }: Props) => {
               </option>
               <option value="fullscrape">Full Scrape</option>
               <option value="headscrape">Head Scrape</option>
+              <option value="post">Post</option>
             </select>
           </div>
         </div>
@@ -62,15 +59,13 @@ const CreateJobCard = ({ onSubmit }: Props) => {
         {selectedJobType && (
           <div className="subsection job-subsections">
             <div className="fields job-details-section">
-              <JobDetails
-                priority={priority}
-                setPriority={setPriority}
-                sourceId={sourceId}
-                setSourceId={setSourceId}
-              />
+              <JobDetails priority={priority} setPriority={setPriority} />
             </div>
-            <div className="fields job-config-section">
-              <JobConfiguration jobType={selectedJobType} />
+            <div className="job-config-section">
+              <JobConfiguration
+                jobType={selectedJobType}
+                setJobConfig={setJobConfig}
+              />
             </div>
             <div className="fields">
               <button

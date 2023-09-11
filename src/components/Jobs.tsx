@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import JobsService from '@service/jobs-service'; // Adjust the import according to your folder structure
 import { JobDTO, JobDTOImpl } from '@domain/dto/job-dto';
 import CreateJobCard from './CreateJobCard';
-import { Table } from './Table';
+import { JobsTable } from './JobsTable';
 
 const Jobs: React.FC = () => {
   const [jobs, setJobs] = useState<JobDTOImpl[]>([]);
@@ -33,16 +33,24 @@ const Jobs: React.FC = () => {
         <div className="card jobs-list-card">
           <h2>Existing Jobs</h2>
           <div className="subsection">
-            <Table
+            <JobsTable
               data={jobs}
               onEmpty="Get a job, kid!"
               accessors={{
                 createdAt: (job) => job.createdAtReadable(),
                 startDate: (job) => job.createdAtReadable(),
                 priority: (job) => job.getPriorityString(),
+                completeDate: (j) => j.completeDateReadable(),
               }}
               onDelete={onDelete}
-              omit={['data', 'id', 'accountId', 'sourceId', 'createdAt']}
+              omit={[
+                'data',
+                'id',
+                'accountId',
+                'sourceId',
+                'createdAt',
+                'state',
+              ]}
             />
           </div>
         </div>

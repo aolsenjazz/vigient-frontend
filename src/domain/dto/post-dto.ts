@@ -23,7 +23,6 @@ export interface PreStoragePostDTO {
   quoteCount: number;
   replyCount: number;
   retweetCount: number;
-  sourceId: number;
   twitterCreatedAt: string | null;
   mediaEntities: PreStorageMediaEntityDTO[];
 }

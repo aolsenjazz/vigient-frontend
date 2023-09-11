@@ -9,6 +9,7 @@
 @import './Table.css';
 @import './forms.css';
 @import './ErrorModal.css';
+@import './JobsTable.css';
 
 /* Reset some default styles */
 body,

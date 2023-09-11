@@ -13,15 +13,14 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
   const [eligibilityWindowStart, setEligibilityWindowStart] = useState('');
   const [eligibilityWindowEnd, setEligibilityWindowEnd] = useState('');
   const [frequencyMinutes, setFrequencyMinutes] = useState(60);
-  const [sourceId, setSourceId] = useState<number | null>(null); // Initialize accountId state
   const [priority, setPriority] = useState<1 | 2 | 3>(1);
+  const [jobConfig, setJobConfig] = useState<Object>({});
 
   const handleCreateSchedule = () => {
     if (
       eligibilityWindowStart === undefined ||
       eligibilityWindowEnd === undefined ||
-      frequencyMinutes === undefined ||
-      sourceId === null
+      frequencyMinutes === undefined
     ) {
       errorEmitter.emit('apiError', 'All schedule details are required');
       return;
@@ -32,8 +31,8 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
       eligibilityWindowStart,
       eligibilityWindowEnd,
       frequencyMinutes,
-      sourceId,
       priority,
+      ...jobConfig,
     };
 
     SchedulesService.createSchedule(scheduleData)
@@ -58,7 +57,8 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
               <option value="" disabled>
                 Select Job Type
               </option>
-              <option value="headscrape">Head Scrape</option>
+              <option value="headscrape">Headscrape</option>
+              <option value="post">Post</option>
             </select>
           </div>
         </div>
@@ -73,14 +73,15 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
                 setEligibilityWindowEnd={setEligibilityWindowEnd}
                 frequencyMinutes={frequencyMinutes}
                 setFrequencyMinutes={setFrequencyMinutes}
-                sourceId={sourceId}
-                setSourceId={setSourceId}
                 priority={priority}
                 setPriority={setPriority}
               />
             </div>
             <div className="fields job-config-section">
-              <JobConfiguration jobType={selectedJobType} />
+              <JobConfiguration
+                jobType={selectedJobType}
+                setJobConfig={setJobConfig}
+              />
             </div>
             <div className="fields">
               <button

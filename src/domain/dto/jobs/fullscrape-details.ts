@@ -1,5 +1,5 @@
 export interface FullscrapeDetails {
-  totalMediaTarget: number;
+  totalPostTarget: number;
   savedPictures: number;
   savedVideos: number;
   lastCursor?: string;

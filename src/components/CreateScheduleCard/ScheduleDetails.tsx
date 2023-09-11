@@ -14,8 +14,6 @@ interface ScheduleDetailsProps {
   setEligibilityWindowEnd: React.Dispatch<React.SetStateAction<string>>;
   frequencyMinutes: number;
   setFrequencyMinutes: React.Dispatch<React.SetStateAction<number>>;
-  sourceId: number | null;
-  setSourceId: React.Dispatch<React.SetStateAction<number | null>>;
   priority: number;
   setPriority: React.Dispatch<React.SetStateAction<1 | 2 | 3>>;
 }
@@ -27,8 +25,6 @@ const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({
   setEligibilityWindowEnd,
   frequencyMinutes,
   setFrequencyMinutes,
-  sourceId,
-  setSourceId,
   priority,
   setPriority,
 }) => {
@@ -55,22 +51,6 @@ const ScheduleDetails: React.FC<ScheduleDetailsProps> = ({
             disabled
             readOnly
           />
-        </div>
-        <div className="input-div">
-          <label>Source:</label>
-          <select
-            value={sourceId || ''}
-            onChange={(e) => setSourceId(parseInt(e.target.value, 10))}
-          >
-            <option value="" disabled>
-              Select a Source
-            </option>
-            {allSources.map((source) => (
-              <option key={source.id} value={source.id}>
-                {source.handle}
-              </option>
-            ))}
-          </select>
         </div>
         <div className="input-div">
           <label>Eligibility Window Start:</label>
