@@ -20,7 +20,6 @@ const CreateJobCard = ({ onSubmit }: Props) => {
       state: 'pending' as const,
       ...jobConfig,
     };
-    console.log(jobData);
 
     JobsService.createJob(jobData)
       .then(() => {
