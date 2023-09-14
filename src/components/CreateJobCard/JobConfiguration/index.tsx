@@ -1,6 +1,7 @@
 import FullScrapeConfig from './FullScrapeConfig';
 import HeadScrapeConfig from './HeadScrapeConfig';
 import PostConfig from './PostConfig';
+import ScrollConfig from './ScrollConfig';
 
 type JobsConfigurationParams = {
   jobType: string;
@@ -18,6 +19,8 @@ const JobConfiguration = ({
       return <FullScrapeConfig setJobConfig={setJobConfig} />;
     case 'headscrape':
       return <HeadScrapeConfig setJobConfig={setJobConfig} />;
+    case 'scroll':
+      return <ScrollConfig setJobConfig={setJobConfig} />;
     default:
       throw new Error();
   }
