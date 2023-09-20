@@ -21,6 +21,8 @@ const JobConfiguration = ({
       return <HeadScrapeConfig setJobConfig={setJobConfig} />;
     case 'scroll':
       return <ScrollConfig setJobConfig={setJobConfig} />;
+    case 'profileRefresh':
+      return null;
     default:
       throw new Error();
   }

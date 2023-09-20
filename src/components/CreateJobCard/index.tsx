@@ -52,6 +52,7 @@ const CreateJobCard = ({ onSubmit }: Props) => {
               <option value="headscrape">Head Scrape</option>
               <option value="post">Post</option>
               <option value="scroll">Scroll</option>
+              <option value="profileRefresh">Profile Refresh</option>
             </select>
           </div>
         </div>
