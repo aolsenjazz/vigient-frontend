@@ -60,6 +60,7 @@ const CreateScheduleCard = ({ onSubmit }: Props) => {
               <option value="headscrape">Headscrape</option>
               <option value="post">Post</option>
               <option value="scroll">Scroll</option>
+              <option value="profileRefresh">Profile Refresh</option>
             </select>
           </div>
         </div>
